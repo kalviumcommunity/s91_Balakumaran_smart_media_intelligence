@@ -1,0 +1,41 @@
+.app {
+  min-height: 100vh;
+}
+
+.app-header {
+  padding: 40px;
+  text-align: center;
+  background: #1f2937;
+  color: white;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.app-header p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.app-main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.welcome-section {
+  text-align: center;
+}
+
+.welcome-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.welcome-section p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
