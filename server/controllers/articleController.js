@@ -46,7 +46,47 @@ const getArticleById = async (req, res) => {
   }
 };
 
+
+const createArticle = async (req, res) => {
+  try {
+    const {
+      title,
+      content,
+      summary,
+      author,
+      category,
+      imageUrl,
+      status,
+      publishedAt,
+    } = req.body;
+
+    const article = await Article.create({
+      title,
+      content,
+      summary,
+      author,
+      category,
+      imageUrl,
+      status,
+      publishedAt,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Article created successfully",
+      data: article,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
 module.exports = {
   getArticles,
   getArticleById,
+  createArticle,
 };
