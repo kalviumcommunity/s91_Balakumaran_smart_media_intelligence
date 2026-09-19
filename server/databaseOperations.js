@@ -15,10 +15,10 @@ const runDatabaseOperations = async () => {
     console.log("Starting database operations...");
 
     // CREATE
-    const category = await Category.create({
-      name: "Technology",
-      description: "Technology related articles",
-    });
+const category = await Category.create({
+  name: `Technology_${Date.now()}`,
+  description: "Technology related articles",
+});
 
     console.log("Category created:", category);
 
@@ -28,12 +28,12 @@ const runDatabaseOperations = async () => {
     console.log("Categories found:", categories);
 
     // CREATE USER
-    const user = await User.create({
-      username: "demo_user",
-      email: "demo@example.com",
-      password: "demo_password",
-      role: "editor",
-    });
+ const user = await User.create({
+  username: `demo_user_${Date.now()}`,
+  email: `demo_${Date.now()}@example.com`,
+  password: "demo_password",
+  role: "editor",
+});
 
     console.log("User created:", user);
 
@@ -69,9 +69,9 @@ const runDatabaseOperations = async () => {
     console.log("Article updated:", updatedArticle);
 
     // DELETE ARTICLE
-    await Article.findByIdAndDelete(article._id);
+    // await Article.findByIdAndDelete(article._id);
 
-    console.log("Article deleted successfully");
+    // console.log("Article deleted successfully");
 
     console.log("Database operations completed successfully.");
 
