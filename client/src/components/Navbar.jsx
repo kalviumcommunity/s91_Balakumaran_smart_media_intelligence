@@ -1,12 +1,28 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav className="navbar">
-      <h2>MediaIQ</h2>
+      <div className="navbar-brand">
+        <Link to="/">MediaIQ</Link>
+      </div>
 
       <div className="navbar-links">
-        <span>Dashboard</span>
-        <span>Articles</span>
-        <span>Analytics</span>
+        <Link to="/">Home</Link>
+
+        <Link to="/articles">Articles</Link>
+
+        <Link to="/articles/create">
+          Create Article
+        </Link>
+
+        <Link to="/login">
+          Login
+        </Link>
+
+        <Link to="/register">
+          Register
+        </Link>
       </div>
     </nav>
   );

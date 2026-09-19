@@ -1,19 +1,49 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
-import Articles from "./pages/Articles";
+import Navbar from "./components/Navbar";
 
-import "./App.css";
+import Home from "./pages/Home";
+import Articles from "./pages/Articles";
+import CreateArticle from "./pages/CreateArticle";
+import EditArticle from "./pages/EditArticle";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/articles" element={<Articles />} />
-      </Routes>
+      <Navbar />
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route
+            path="/articles"
+            element={<Articles />}
+          />
+
+          <Route
+            path="/articles/create"
+            element={<CreateArticle />}
+          />
+
+          <Route
+            path="/articles/edit/:id"
+            element={<EditArticle />}
+          />
+
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+
+          <Route
+            path="/register"
+            element={<Register />}
+          />
+        </Routes>
+      </main>
     </BrowserRouter>
   );
 }

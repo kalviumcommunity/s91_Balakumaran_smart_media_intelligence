@@ -4,14 +4,68 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f8fafc;
-  color: #111827;
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  color: #222;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: #1f2937;
+}
+
+.navbar-brand a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 24px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 30px 40px;
+}
+
+.home-page {
+  max-width: 1000px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.home-page h1 {
+  font-size: 48px;
+}
+
+.home-page h2 {
+  font-size: 28px;
+}
+
+.home-page p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+button {
+  margin: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
 }
