@@ -8,13 +8,17 @@ const {
   deleteArticle,
 } = require("../controllers/articleController");
 
+const protect = require("../middleware/authMiddleware");
+
 const router = express.Router();
 
+// Public routes
 router.get("/", getArticles);
 router.get("/:id", getArticleById);
 
-router.post("/", createArticle);
-router.put("/:id", updateArticle);
-router.delete("/:id", deleteArticle);
+// Protected routes
+router.post("/", protect, createArticle);
+router.put("/:id", protect, updateArticle);
+router.delete("/:id", protect, deleteArticle);
 
 module.exports = router;

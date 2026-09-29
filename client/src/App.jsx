@@ -8,6 +8,7 @@ import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/EditArticle";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AuthSuccess from "./pages/AuthSuccess";
 
 function App() {
   return (
@@ -42,6 +43,11 @@ function App() {
             path="/register"
             element={<Register />}
           />
+
+          <Route
+  path="/auth-success"
+  element={<AuthSuccess />}
+/>
         </Routes>
       </main>
     </BrowserRouter>

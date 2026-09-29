@@ -1,11 +1,11 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const registerUser = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
 
-    // Validate required fields
     if (!username || !email || !password) {
       return res.status(400).json({
         success: false,
@@ -13,7 +13,6 @@ const registerUser = async (req, res) => {
       });
     }
 
-    // Check whether username already exists
     const existingUsername = await User.findOne({ username });
 
     if (existingUsername) {
@@ -23,7 +22,6 @@ const registerUser = async (req, res) => {
       });
     }
 
-    // Check whether email already exists
     const existingEmail = await User.findOne({ email });
 
     if (existingEmail) {
@@ -33,10 +31,8 @@ const registerUser = async (req, res) => {
       });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
     const user = await User.create({
       username,
       email,
@@ -62,11 +58,11 @@ const registerUser = async (req, res) => {
   }
 };
 
+
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -74,7 +70,6 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // Find user
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -84,7 +79,6 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // Compare password
     const passwordMatch = await bcrypt.compare(
       password,
       user.password
@@ -97,9 +91,24 @@ const loginUser = async (req, res) => {
       });
     }
 
+    // Create JWT token
+    const token = jwt.sign(
+      {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+      }
+    );
+
     res.status(200).json({
       success: true,
       message: "Login successful",
+      token,
       data: {
         id: user._id,
         username: user.username,
@@ -114,6 +123,7 @@ const loginUser = async (req, res) => {
     });
   }
 };
+
 
 module.exports = {
   registerUser,
