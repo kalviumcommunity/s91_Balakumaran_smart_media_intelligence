@@ -7,18 +7,22 @@ const connectDB = require("./config/db");
 const articleRoutes = require("./routes/articleRoutes");
 
 const categoryRoutes = require("./routes/categoryRoutes");
+const authRoutes = require("./routes/authRoutes");
+const passport = require("./config/passport");
 
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use(passport.initialize());
 connectDB();
 
 // Connect article routes
 app.use("/api/articles", articleRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/auth", authRoutes);
+
 
 
 app.get("/", (req, res) => {

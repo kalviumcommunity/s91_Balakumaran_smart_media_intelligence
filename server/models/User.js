@@ -6,20 +6,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      trim: true,
     },
 
     email: {
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
-      trim: true,
     },
 
     password: {
       type: String,
-      required: true,
+      required: false,
     },
 
     role: {
@@ -31,6 +28,18 @@ const userSchema = new mongoose.Schema(
     profileImage: {
       type: String,
       default: "",
+    },
+
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+
+    authProvider: {
+      type: String,
+      enum: ["local", "google"],
+      default: "local",
     },
   },
   {
