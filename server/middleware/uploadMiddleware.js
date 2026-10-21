@@ -1,9 +1,17 @@
+
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+
+// Always use the uploads directory inside the server folder
+const uploadDir = path.join(__dirname, "..", "uploads");
+
+// Create the directory automatically if it doesn't exist
+fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, uploadDir);
   },
 
   filename: (req, file, cb) => {
@@ -11,7 +19,7 @@ const storage = multer.diskStorage({
       Date.now() +
       "-" +
       Math.round(Math.random() * 1e9) +
-      path.extname(file.originalname);
+      path.extname(file.originalname).toLowerCase();
 
     cb(null, uniqueName);
   },
@@ -22,17 +30,12 @@ const fileFilter = (req, file, cb) => {
     "image/jpeg",
     "image/png",
     "image/webp",
-    "image/jpg",
   ];
 
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(
-      new Error(
-        "Only JPG, JPEG, PNG and WEBP images are allowed"
-      )
-    );
+    cb(new Error("Only JPG, PNG and WEBP images are allowed"));
   }
 };
 
@@ -40,7 +43,7 @@ const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize: 5 * 1024 * 1024, // 5 MB
   },
 });
 
