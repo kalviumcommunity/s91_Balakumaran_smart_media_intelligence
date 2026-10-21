@@ -11,6 +11,7 @@ function CreateArticle() {
     status: "draft",
   });
 
+  const [image, setImage] = useState(null);
   const [message, setMessage] = useState("");
 
   const handleChange = (event) => {
@@ -22,11 +23,32 @@ function CreateArticle() {
     }));
   };
 
+  const handleImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      setImage(selectedFile);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      await createArticle(formData);
+      const data = new FormData();
+
+      data.append("title", formData.title);
+      data.append("content", formData.content);
+      data.append("summary", formData.summary);
+      data.append("author", formData.author);
+      data.append("category", formData.category);
+      data.append("status", formData.status);
+
+      if (image) {
+        data.append("image", image);
+      }
+
+      await createArticle(data);
 
       setMessage("Article created successfully!");
 
@@ -38,11 +60,14 @@ function CreateArticle() {
         category: "",
         status: "draft",
       });
+
+      setImage(null);
     } catch (error) {
       console.error(error);
 
       setMessage(
-        error.response?.data?.message || "Failed to create article"
+        error.response?.data?.message ||
+          "Failed to create article"
       );
     }
   };
@@ -53,8 +78,11 @@ function CreateArticle() {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Title</label>
+          <label htmlFor="title">Title</label>
+
           <input
+            id="title"
+            type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
@@ -63,8 +91,11 @@ function CreateArticle() {
         </div>
 
         <div>
-          <label>Summary</label>
+          <label htmlFor="summary">Summary</label>
+
           <input
+            id="summary"
+            type="text"
             name="summary"
             value={formData.summary}
             onChange={handleChange}
@@ -72,8 +103,10 @@ function CreateArticle() {
         </div>
 
         <div>
-          <label>Content</label>
+          <label htmlFor="content">Content</label>
+
           <textarea
+            id="content"
             name="content"
             value={formData.content}
             onChange={handleChange}
@@ -82,8 +115,13 @@ function CreateArticle() {
         </div>
 
         <div>
-          <label>Author ID</label>
+          <label htmlFor="author">
+            Author ID
+          </label>
+
           <input
+            id="author"
+            type="text"
             name="author"
             value={formData.author}
             onChange={handleChange}
@@ -92,8 +130,13 @@ function CreateArticle() {
         </div>
 
         <div>
-          <label>Category ID</label>
+          <label htmlFor="category">
+            Category ID
+          </label>
+
           <input
+            id="category"
+            type="text"
             name="category"
             value={formData.category}
             onChange={handleChange}
@@ -102,20 +145,42 @@ function CreateArticle() {
         </div>
 
         <div>
-          <label>Status</label>
+          <label htmlFor="image">
+            Article Image
+          </label>
+
+          <input
+            id="image"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleImageChange}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="status">
+            Status
+          </label>
 
           <select
+            id="status"
             name="status"
             value={formData.status}
             onChange={handleChange}
           >
             <option value="draft">Draft</option>
-            <option value="published">Published</option>
-            <option value="archived">Archived</option>
+            <option value="published">
+              Published
+            </option>
+            <option value="archived">
+              Archived
+            </option>
           </select>
         </div>
 
-        <button type="submit">Create Article</button>
+        <button type="submit">
+          Create Article
+        </button>
       </form>
 
       {message && <p>{message}</p>}
