@@ -57,20 +57,31 @@ const createArticle = async (req, res) => {
       summary,
       author,
       category,
-      imageUrl,
       status,
-      publishedAt,
     } = req.body;
+
+    if (!title || !content || !author || !category) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Title, content, author and category are required",
+      });
+    }
+
+    const imageUrl = req.file
+      ? `/uploads/${req.file.filename}`
+      : "";
 
     const article = await Article.create({
       title,
       content,
-      summary,
+      summary: summary || "",
       author,
       category,
       imageUrl,
-      status,
-      publishedAt,
+      status: status || "draft",
+      publishedAt:
+        status === "published" ? new Date() : null,
     });
 
     res.status(201).json({
