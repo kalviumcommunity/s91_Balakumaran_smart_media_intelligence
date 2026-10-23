@@ -1,3 +1,5 @@
+require("node:dns").setServers(["1.1.1.1", "8.8.8.8"]);
+
 require("dotenv").config();
 
 const express = require("express");
@@ -29,6 +31,10 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/auth", authRoutes);
 
 app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+
   if (err instanceof require("multer").MulterError) {
     if (err.code === "LIMIT_FILE_SIZE") {
       return res.status(400).json({
@@ -52,7 +58,12 @@ app.use((err, req, res, next) => {
     });
   }
 
-  next(err);
+  console.error(err);
+
+  return res.status(500).json({
+    success: false,
+    message: "An unexpected server error occurred",
+  });
 });
 
 app.get("/", (req, res) => {

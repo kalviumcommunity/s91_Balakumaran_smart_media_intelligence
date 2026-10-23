@@ -17,7 +17,7 @@ const router = express.Router();
 // Public routes
 router.get("/", getArticles);
 
-// GET single article
+// GET single artic
 router.get("/:id", getArticleById);
 
 // POST article with image upload

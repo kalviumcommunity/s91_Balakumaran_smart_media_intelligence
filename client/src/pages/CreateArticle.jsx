@@ -182,8 +182,8 @@ function CreateArticle() {
           Create Article
         </button>
       </form>
-
-      {message && <p>{message}</p>}
+       
+       {message && <p>{message}</p>}
     </div>
   );
 }
