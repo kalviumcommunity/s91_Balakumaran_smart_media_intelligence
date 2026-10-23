@@ -6,6 +6,7 @@ const Category = require("../models/Category");
 
 const getArticles = async (req, res) => {
   try {
+    
     const articles = await Article.find()
       .populate("author", "username email")
       .populate("category", "name");
@@ -50,7 +51,10 @@ const getArticleById = async (req, res) => {
 
 
 const createArticle = async (req, res) => {
+  
   try {
+    console.log("Uploaded file:", req.file);
+    console.log("Request body:", req.body);
     const {
       title,
       content,
