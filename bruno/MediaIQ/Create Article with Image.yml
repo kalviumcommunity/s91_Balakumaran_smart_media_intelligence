@@ -1,0 +1,44 @@
+info:
+  name: Create Article with Image
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{baseUrl}}/articles"
+  body:
+    type: multipart-form
+    data:
+      - name: title
+        type: text
+        value: Text
+        contentType: Bruno Upload Test
+      - name: content
+        type: text
+        value: Text
+        contentType: Testing image upload using Bruno
+      - name: summary
+        type: text
+        value: Text
+        contentType: Test article for API documentation
+      - name: author
+        type: text
+        value: Text
+        contentType: Your actual MongoDB User _id
+      - name: category
+        type: text
+        value: Text
+      - name: status
+        type: text
+        value: Text
+      - name: image
+        type: text
+        value: File
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
