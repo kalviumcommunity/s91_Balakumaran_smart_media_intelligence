@@ -1,0 +1,27 @@
+info:
+  name: Update Article
+  type: http
+  seq: 6
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/articles/6aae2c6e8bf9069f615efad6"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Updated Bruno Test Article",
+        "content": "Updated article content for API testing",
+        "summary": "Updated summary",
+        "status": "draft"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGI3NWFmMTIyNDA5ODg5YjAwMmFkNSIsInVzZXJuYW1lIjoiYnJ1bm9fdGVzdF91c2VyIiwiZW1haWwiOiJicnVub190ZXN0QGV4YW1wbGUuY29tIiwicm9sZSI6ImVkaXRvciIsImlhdCI6MTc5Mjc2NzUyMiwiZXhwIjoxNzkyODUzOTIyfQ.2risYVHJ5eGwS6vRwjLJ_qtykeqFmeBJC99AQNGZq-E
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
