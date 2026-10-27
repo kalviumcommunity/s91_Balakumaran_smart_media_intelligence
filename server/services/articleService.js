@@ -10,7 +10,7 @@ export const getArticleById = async (id) => {
   const response = await api.get(`/articles/${id}`);
   return response.data;
 };
-
+//create article with image upload
 export const createArticle = async (articleData) => {
   const response = await api.post("/articles", articleData);
   return response.data;
